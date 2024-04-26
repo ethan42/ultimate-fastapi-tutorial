@@ -68,7 +68,7 @@ def create_user_signup(
             status_code=400,
             detail="The user with this email already exists in the system",
         )
-    if '\x00' in user_in.password or '\x00' in user_in.surname or '\x00' in user_in.email:
+    if '\x00' in user_in.password or '\x00' in user_in.surname or '\x00' in user_in.email or '\x00' in user_in.first_name:
         raise HTTPException(
             status_code=400,
             detail="NULL bytes are not allowed in the password"
