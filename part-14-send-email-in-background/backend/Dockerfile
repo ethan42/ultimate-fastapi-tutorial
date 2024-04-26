@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM --platform=linux/amd64 python:3.9
 
 # create the app user
 RUN addgroup --system app && adduser --system --group app
@@ -37,6 +37,8 @@ ENV PYTHONPATH=/app
 
 # chown all the files to the app user
 RUN chown -R app:app $HOME
+
+RUN apt install -fy libpq5
 
 # change to the app user
 # Switch to a non-root user, which is recommended by Heroku.

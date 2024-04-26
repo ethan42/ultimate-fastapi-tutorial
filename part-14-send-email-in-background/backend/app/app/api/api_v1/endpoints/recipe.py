@@ -57,7 +57,7 @@ def fetch_user_recipes(
     return {"results": list(recipes)}
 
 
-@router.get("/search/", status_code=200, response_model=RecipeSearchResults)
+# @router.get("/search/", status_code=200, response_model=RecipeSearchResults)
 def search_recipes(
     *,
     keyword: str = Query(None, min_length=3, example="chicken"),
@@ -67,6 +67,10 @@ def search_recipes(
     """
     Search for recipes based on label keyword
     """
+    if max_results <= 0:
+        raise HTTPException(
+            status_code=403, detail=f"You can only request positive limits"
+        )
     recipes = crud.recipe.get_multi(db=db, limit=max_results)
     results = filter(lambda recipe: keyword.lower() in recipe.label.lower(), recipes)
 
@@ -134,7 +138,7 @@ async def get_reddit_top_async(subreddit: str) -> list:
     return subreddit_data
 
 
-@router.get("/ideas/async")
+#@router.get("/ideas/async")
 async def fetch_ideas_async(
     user: User = Depends(deps.get_current_active_superuser),
 ) -> dict:
@@ -144,7 +148,7 @@ async def fetch_ideas_async(
     return dict(zip(RECIPE_SUBREDDITS, results))
 
 
-@router.get("/ideas/")
+#@router.get("/ideas/")
 def fetch_ideas(reddit_client: RedditClient = Depends(deps.get_reddit_client)) -> dict:
     return {
         key: reddit_client.get_reddit_top(subreddit=key) for key in RECIPE_SUBREDDITS

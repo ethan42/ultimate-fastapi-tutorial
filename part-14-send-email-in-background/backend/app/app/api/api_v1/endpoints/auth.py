@@ -28,7 +28,8 @@ def login(
     """
     Get the JWT for a user with data from OAuth2 request form body.
     """
-
+    if "\x00" in form_data.password or "\x00" in form_data.username:
+        raise HTTPException(status_code=400, detail="Bad password or username")
     user = authenticate(email=form_data.username, password=form_data.password, db=db)
     if not user:
         raise HTTPException(status_code=400, detail="Incorrect username or password")
@@ -66,6 +67,11 @@ def create_user_signup(
         raise HTTPException(
             status_code=400,
             detail="The user with this email already exists in the system",
+        )
+    if '\x00' in user_in.password:
+        raise HTTPException(
+            status_code=400,
+            detail="NULL bytes are not allowed in the password"
         )
     user = crud.user.create(db=db, obj_in=user_in)
 
