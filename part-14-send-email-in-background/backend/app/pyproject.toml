@@ -6,7 +6,7 @@ authors = ["ChristopherGS"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-greenlet = "^1.0"
+greenlet = "^3.0"
 httptools = "~0.6.1"
 packaging = "^23.1"
 uvicorn = "^0.28"
