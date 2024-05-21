@@ -6,18 +6,21 @@ authors = ["ChristopherGS"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-uvicorn = "~0.11.3"
-fastapi = "~0.68.0"
+greenlet = "^1.0"
+httptools = "~0.6.1"
+packaging = "^23.1"
+uvicorn = "^0.28"
+fastapi = "^0.110.0"
 python-multipart = "~0.0.5"
 pydantic = {extras = ["dotenv", "email"], version = "^1.9.0"}
 Jinja2 = "~3.0.1"
-SQLAlchemy = "~1.4.3"
+SQLAlchemy = "^1.0.0"
 alembic = "~1.6.5"
 tenacity = "~8.0.1"
 httpx = "~0.18.1"
 passlib = {extras = ["bcrypt"], version = "^1.7.2"}
 python-jose = {extras = ["cryptography"], version = "^3.3.0"}
-psycopg2-binary = "^2.9.3"
+psycopg2-binary = "~2.9.9"
 gunicorn = "^20.1.0"
 loguru = "^0.6.0"
 
